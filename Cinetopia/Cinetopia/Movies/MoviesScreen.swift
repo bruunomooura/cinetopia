@@ -7,17 +7,17 @@
 
 import UIKit
 
-protocol MoviesScreenProtocol: AnyObject {
-    //    func navigation()
-}
+//protocol MoviesScreenProtocol: AnyObject {
+//        func navigation(movie: Movie)
+//}
 
 class MoviesScreen: UIView {
     
-    private weak var delegate: MoviesScreenProtocol?
-    
-    public func delegate(delegate: MoviesScreenProtocol?) {
-        self.delegate = delegate
-    }
+//    private weak var delegate: MoviesScreenProtocol?
+//    
+//    public func delegate(delegate: MoviesScreenProtocol?) {
+//        self.delegate = delegate
+//    }
     
     private lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()

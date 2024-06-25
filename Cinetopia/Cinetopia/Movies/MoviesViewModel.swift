@@ -12,7 +12,7 @@ protocol MoviesViewModelProtocol: AnyObject {
 }
 
 class MoviesViewModel {
-    weak var delegate: MoviesViewModelProtocol?
+    private weak var delegate: MoviesViewModelProtocol?
     
     private var moviesList: [Movie] = movies
     private var filteredMovies: [Movie] = [] 
@@ -37,6 +37,11 @@ class MoviesViewModel {
 }
 
 extension MoviesViewModel {
+    
+    public func delegate(delegate: MoviesViewModelProtocol?) {
+        self.delegate = delegate
+    }
+    
     private func filterMovies() {
         if searchText.isEmpty {
             filteredMovies = moviesList

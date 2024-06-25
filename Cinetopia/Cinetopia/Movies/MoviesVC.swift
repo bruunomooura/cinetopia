@@ -15,10 +15,10 @@ class MoviesVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
-        screen?.delegate(delegate: self)
+//        screen?.delegate(delegate: self)
         screen?.setupTableView(delegate: self, dataSource: self)
         screen?.setupSearchBar(delegate: self)
-        viewModel.delegate = self
+        viewModel.delegate(delegate: self)
     }
     
     override func loadView() {
@@ -34,12 +34,11 @@ class MoviesVC: UIViewController {
         ]
         navigationItem.setHidesBackButton(true, animated: true)
     }
-}
 
-extension MoviesVC: MoviesScreenProtocol {
-//    func navigation() {
-//        
-//    }
+    func navigation(movie: Movie) {
+        let movieDetailsViewModel = MovieDetailsViewModel(movie: movie)
+        navigationController?.pushViewController(MovieDetailsVC(viewModel: movieDetailsViewModel), animated: true)
+    }
 }
 
 extension MoviesVC: UITableViewDelegate, UITableViewDataSource {
@@ -56,6 +55,8 @@ extension MoviesVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let movie = viewModel.loadCurrentMovie(indexPath: indexPath)
+        navigation(movie: movie)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
