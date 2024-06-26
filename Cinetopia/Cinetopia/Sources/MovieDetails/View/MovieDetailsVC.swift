@@ -30,9 +30,6 @@ class MovieDetailsVC: UIViewController {
         self.screen = MovieDetailsScreen()
         view = screen
     }
-    
-    
-
 }
 
 #Preview {
