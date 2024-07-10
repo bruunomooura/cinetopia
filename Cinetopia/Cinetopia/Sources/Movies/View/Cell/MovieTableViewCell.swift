@@ -7,14 +7,17 @@
 
 import UIKit
 
-class MovieTableViewCell: UITableViewCell {
+final class MovieTableViewCell: UITableViewCell {
     
     static let identifier: String = String(describing: MovieTableViewCell.self)
+    
+    deinit {
+        print(Self.self, "- Deallocated")
+    }
     
     private lazy var moviePosterImageView: UIImageView = {
         let imageView: UIImageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFill
         imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = 12
         return imageView
@@ -38,11 +41,11 @@ class MovieTableViewCell: UITableViewCell {
     }()
     
     func configureCell(movie: Movie) {
-        moviePosterImageView.image = UIImage(named: movie.image)
+        moviePosterImageView.loadImageFromURL(movie.imageURL)
         movieTitleLabel.text = movie.title
-        movieReleaseDateLabel.text = "Lançamento: \(movie.releaseDate)"
+        movieReleaseDateLabel.text = "Lançamento: \(movie.formattedReleaseDate)"
     }
-
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setup()
@@ -57,10 +60,10 @@ class MovieTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         // Configure the view for the selected state
     }
 }
@@ -89,11 +92,11 @@ extension MovieTableViewCell: ViewCode {
     }
     
     func setupStyle() {
-//        <#code#>
+        //        <#code#>
     }
 }
 
 #Preview {
     UINavigationController(rootViewController: MoviesVC())
-//    MovieTableViewCell()
+    //    MovieTableViewCell()
 }

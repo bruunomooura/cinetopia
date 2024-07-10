@@ -11,13 +11,17 @@ import UIKit
 //        func navigation(movie: Movie)
 //}
 
-class MoviesScreen: UIView {
+final class MoviesScreen: UIView {
     
-//    private weak var delegate: MoviesScreenProtocol?
-//    
-//    public func delegate(delegate: MoviesScreenProtocol?) {
-//        self.delegate = delegate
-//    }
+    //    private weak var delegate: MoviesScreenProtocol?
+    //
+    //    public func delegate(delegate: MoviesScreenProtocol?) {
+    //        self.delegate = delegate
+    //    }
+    
+    deinit {
+        print(Self.self, "- Deallocated")
+    }
     
     private lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
@@ -30,8 +34,55 @@ class MoviesScreen: UIView {
         searchBar.barTintColor = .white
         searchBar.keyboardType = .alphabet
         searchBar.inputAccessoryView = addDoneButtonOnKeyboard
+        
+        // Configure the placeholder color
+        let placeholderAttributes: [NSAttributedString.Key: Any] = [
+            .foregroundColor: UIColor.gray // Cor do placeholder
+        ]
+        let attributedPlaceholder = NSAttributedString(string: searchBar.placeholder ?? "", attributes: placeholderAttributes)
+        searchBar.searchTextField.attributedPlaceholder = attributedPlaceholder
+        
+        // Configure the color of the typed text
+        searchBar.searchTextField.defaultTextAttributes = [
+            .foregroundColor: UIColor.black, // Cor do texto digitado
+            .font: UIFont.systemFont(ofSize: 16) // Fonte do texto
+        ]
+        
+        // Configure the color of the magnifying glass image and the search bar clear button
+        if let textField = searchBar.value(forKey: "searchField") as? UITextField,
+           let leftView = textField.leftView as? UIImageView,
+           let clearButton = textField.value(forKey: "clearButton") as? UIButton {
+            
+            // Configure the color of the searchBar magnifying glass
+            leftView.image = leftView.image?.withRenderingMode(.alwaysTemplate)
+            leftView.tintColor = .gray
+            
+            // Configure the color of the clear button
+            clearButton.setImage(clearButton.imageView?.image?.withRenderingMode(.alwaysTemplate), for: .normal)
+            clearButton.tintColor = .gray
+        }
+        
         return searchBar
     }()
+    
+    private lazy var addDoneButtonOnKeyboard: UIToolbar = {
+        let doneToolbar = UIToolbar()
+        doneToolbar.barStyle = .default
+        doneToolbar.items = [
+            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+            UIBarButtonItem(title: "Concluído", style: .done, target: self, action: #selector(doneButtonAction))
+        ]
+        
+        doneToolbar.tintColor = UIColor { traitCollection in
+            return traitCollection.userInterfaceStyle == .light ? .black : .white
+        }
+        doneToolbar.sizeToFit()
+        return doneToolbar
+    }()
+    
+    @objc private func doneButtonAction() {
+        searchBar.resignFirstResponder()
+    }
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
@@ -54,22 +105,6 @@ class MoviesScreen: UIView {
         return label
     }()
     
-    private lazy var addDoneButtonOnKeyboard: UIToolbar = {
-        let doneToolbar = UIToolbar()
-        doneToolbar.barStyle = .default
-        doneToolbar.items = [
-            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
-            UIBarButtonItem(title: "Concluído", style: .done, target: self, action: #selector(doneButtonAction))
-        ]
-        doneToolbar.tintColor = .black
-        doneToolbar.sizeToFit()
-        return doneToolbar
-    }()
-    
-    @objc private func doneButtonAction() {
-        searchBar.resignFirstResponder()
-    }
-    
     public func setupTableView(delegate: UITableViewDelegate, dataSource: UITableViewDataSource) {
         tableView.delegate = delegate
         tableView.dataSource = dataSource
@@ -81,6 +116,10 @@ class MoviesScreen: UIView {
     
     public func reloadTableView() {
         tableView.reloadData()
+    }
+    
+    public func insertRowsTableView(indexPaths: [IndexPath]) {
+        tableView.insertRows(at: indexPaths, with: .none)
     }
     
     public func noResults(noResults: Bool) {

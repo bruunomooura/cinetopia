@@ -7,7 +7,7 @@
 
 import Foundation
 
-class MovieDetailsViewModel {
+final class MovieDetailsViewModel {
     var movie: Movie
     
     init(movie: Movie) {

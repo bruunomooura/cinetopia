@@ -11,7 +11,7 @@ protocol HomeScreenProtocol: AnyObject {
     func navigation()
 }
 
-class HomeScreen: UIView {
+final class HomeScreen: UIView {
     
     private weak var delegate: HomeScreenProtocol?
     
@@ -103,7 +103,8 @@ extension HomeScreen: ViewCode {
             stackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
             stackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
             stackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -64),
-
+            welcomeLabel.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: 10),
+            welcomeLabel.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: -10),
 
             welcomeButton.heightAnchor.constraint(equalToConstant: 68),
             welcomeButton.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: 64),

@@ -7,32 +7,35 @@
 
 import Foundation
 
-struct Movie {
-    let id: Int
-    let title: String
-    let image: String
-    let synopsis: String
-    let rate: Double
-    let releaseDate: String
+struct MovieResponse: Decodable {
+    let results: [Movie]
 }
 
-let movies: [Movie] = [
-Movie(id: 1,
-      title: "Avatar",
-      image: "Avatar",
-      synopsis: "No exuberante mundo alienígena de Pandora vivem os Na'vi, seres que parecem ser primitivos, mas são altamente evoluídos. Como o ambiente do planeta é tóxico, foram criados os avatares, corpos biológicos controlados pela mente humana que se movimentam livremente em Pandora. Jake Sully, um ex-fuzileiro naval paralítico, volta a andar através de um avatar e se apaixona por uma Na'vi. Esta paixão leva Jake a lutar pela sobrevivência de Pandora.",
-      rate: 9.4,
-      releaseDate: "18/12/2009"),
-Movie(id: 2,
-      title: "Vingadores Ultimato",
-      image: "Avengers",
-      synopsis: "Após Thanos eliminar metade das criaturas vivas, os Vingadores têm de lidar com a perda de amigos e entes queridos. Com Tony Stark vagando perdido no espaço sem água e comida, Steve Rogers e Natasha Romanov lideram a resistência contra o titã louco.",
-      rate: 9.2,
-      releaseDate: "24/04/2019"),
-Movie(id: 3,
-      title: "Harry Potter e as Relíquias da Morte - Parte 2",
-      image: "HP-2",
-      synopsis: "A batalha entre as forças do bem e do mal da magia alcançam o mundo dos trouxas. O risco nunca foi tão grande, e ninguém está seguro. Harry Potter precisa fazer um sacrifício final conforme o confronto com Lord Voldemort se aproxima.",
-      rate: 9.5,
-      releaseDate: "15/07/2011")
-]
+struct Movie: Decodable {
+    let id: Int
+    let synopsis: String
+    var imagePath: String
+    let releaseDate: String
+    let title: String
+    let voteAverage: Double
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case synopsis = "overview"
+        case imagePath = "poster_path"
+        case releaseDate = "release_date"
+        case title
+        case voteAverage = "vote_average"
+    }
+    
+    // Computed property to get the Brazilian date format
+    var formattedReleaseDate: String {
+        return releaseDate.toBrazilianDateFormat()
+    }
+    
+    // Computed property to generate the complete image link using baseURL, sizeImage and imagePath
+    var imageURL: String {
+        let imageSize = "w185"
+        return APIKeys.imageBaseURL + imageSize + self.imagePath
+    }
+}

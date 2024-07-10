@@ -7,18 +7,23 @@
 
 import UIKit
 
-class MoviesVC: UIViewController {
-
+final class MoviesVC: UIViewController {
+    
+    deinit {
+        print(Self.self, "- Deallocated")
+    }
+    
     var viewModel: MoviesViewModel = MoviesViewModel()
     var screen: MoviesScreen?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
-//        screen?.delegate(delegate: self)
+        //        screen?.delegate(delegate: self)
         screen?.setupTableView(delegate: self, dataSource: self)
         screen?.setupSearchBar(delegate: self)
         viewModel.delegate(delegate: self)
+        viewModel.loadDataMovies()
     }
     
     override func loadView() {
@@ -34,7 +39,7 @@ class MoviesVC: UIViewController {
         ]
         navigationItem.setHidesBackButton(true, animated: true)
     }
-
+    
     func navigation(movie: Movie) {
         let movieDetailsViewModel = MovieDetailsViewModel(movie: movie)
         navigationController?.pushViewController(MovieDetailsVC(viewModel: movieDetailsViewModel), animated: true)
@@ -47,10 +52,10 @@ extension MoviesVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: MovieTableViewCell.identifier, for: indexPath) as? MovieTableViewCell else { return UITableViewCell() }
         let movie = viewModel.loadCurrentMovie(indexPath: indexPath)
-        let cell = tableView.dequeueReusableCell(withIdentifier: MovieTableViewCell.identifier, for: indexPath) as? MovieTableViewCell
-        cell?.configureCell(movie: movie)
-        return cell ?? UITableViewCell()
+        cell.configureCell(movie: movie)
+        return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -61,6 +66,12 @@ extension MoviesVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return viewModel.heightForRow()
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.row >= viewModel.limitIndexForDownloadingAdditionalData && !viewModel.isLoading {
+            viewModel.additionalLoadData()
+        }
     }
 }
 
@@ -78,6 +89,15 @@ extension MoviesVC: MoviesViewModelProtocol {
     func searchText() {
         screen?.reloadTableView()
         screen?.noResults(noResults: viewModel.noResults)
+    }
+    
+    func updateData() {
+        screen?.reloadTableView()
+        screen?.noResults(noResults: viewModel.noResults)
+    }
+    
+    func insertRows(_ newsIndexPaths: [IndexPath]) {
+        screen?.insertRowsTableView(indexPaths: newsIndexPaths)
     }
 }
 
