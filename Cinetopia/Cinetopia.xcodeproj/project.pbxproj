@@ -25,7 +25,6 @@
 		3F3E90CF2C2A123000802E61 /* MovieDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3E90CE2C2A123000802E61 /* MovieDetailsVC.swift */; };
 		3F3E90D32C2A124D00802E61 /* MovieDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3E90D22C2A124C00802E61 /* MovieDetailsViewModel.swift */; };
 		3F3E90D52C2A127200802E61 /* MovieDetailsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3E90D42C2A127200802E61 /* MovieDetailsScreen.swift */; };
-		3F3E90E42C2DE2E800802E61 /* APIKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3E90E32C2DE2E800802E61 /* APIKeys.swift */; };
 		3F3E90E62C2DE45B00802E61 /* TMDBServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3E90E52C2DE45B00802E61 /* TMDBServiceManager.swift */; };
 		3F3E90E92C2F490100802E61 /* UIImageView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3E90E82C2F490100802E61 /* UIImageView+Extensions.swift */; };
 		3F3E90EF2C37220C00802E61 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3E90EE2C37220C00802E61 /* String+Extensions.swift */; };
@@ -35,6 +34,7 @@
 		3F3E90F82C38AB1500802E61 /* MockServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3E90F72C38AB1500802E61 /* MockServiceManager.swift */; };
 		3F3E90FA2C38B1AF00802E61 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3E90F92C38B1AF00802E61 /* AppConfig.swift */; };
 		3F3E90FC2C38B32600802E61 /* DevelopmentStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3E90FB2C38B32600802E61 /* DevelopmentStatus.swift */; };
+		3F6AA4232C3EECD80087C768 /* APIKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6AA4222C3EECD80087C768 /* APIKeys.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,7 +77,6 @@
 		3F3E90CE2C2A123000802E61 /* MovieDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsVC.swift; sourceTree = "<group>"; };
 		3F3E90D22C2A124C00802E61 /* MovieDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsViewModel.swift; sourceTree = "<group>"; };
 		3F3E90D42C2A127200802E61 /* MovieDetailsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsScreen.swift; sourceTree = "<group>"; };
-		3F3E90E32C2DE2E800802E61 /* APIKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKeys.swift; sourceTree = "<group>"; };
 		3F3E90E52C2DE45B00802E61 /* TMDBServiceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMDBServiceManager.swift; sourceTree = "<group>"; };
 		3F3E90E82C2F490100802E61 /* UIImageView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extensions.swift"; sourceTree = "<group>"; };
 		3F3E90EE2C37220C00802E61 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
@@ -87,6 +86,7 @@
 		3F3E90F72C38AB1500802E61 /* MockServiceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockServiceManager.swift; sourceTree = "<group>"; };
 		3F3E90F92C38B1AF00802E61 /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
 		3F3E90FB2C38B32600802E61 /* DevelopmentStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevelopmentStatus.swift; sourceTree = "<group>"; };
+		3F6AA4222C3EECD80087C768 /* APIKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKeys.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -211,7 +211,7 @@
 		3F3E90D62C2C468900802E61 /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				3F3E90E32C2DE2E800802E61 /* APIKeys.swift */,
+				3F6AA4222C3EECD80087C768 /* APIKeys.swift */,
 				3F3E90F32C3874DE00802E61 /* JSONFile.swift */,
 				3F3E90F72C38AB1500802E61 /* MockServiceManager.swift */,
 				3F3E90E52C2DE45B00802E61 /* TMDBServiceManager.swift */,
@@ -467,9 +467,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F6AA4232C3EECD80087C768 /* APIKeys.swift in Sources */,
 				3F3E90D32C2A124D00802E61 /* MovieDetailsViewModel.swift in Sources */,
 				3F3E908B2C22325F00802E61 /* HomeVC.swift in Sources */,
-				3F3E90E42C2DE2E800802E61 /* APIKeys.swift in Sources */,
 				3F3E90FA2C38B1AF00802E61 /* AppConfig.swift in Sources */,
 				3F3E90E62C2DE45B00802E61 /* TMDBServiceManager.swift in Sources */,
 				3F3E90BF2C24BA6C00802E61 /* MoviesScreen.swift in Sources */,
