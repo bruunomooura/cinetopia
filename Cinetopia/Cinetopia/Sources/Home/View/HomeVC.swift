@@ -24,7 +24,17 @@ final class HomeVC: UIViewController {
 
 extension HomeVC: HomeScreenProtocol {
     func navigation() {
-        navigationController?.pushViewController(MoviesVC(), animated: true)
+        let tabBar: TabBarController = TabBarController()
+        if let windowScene = view.window?.windowScene {
+            if let window = windowScene.windows.first {
+                window.rootViewController = tabBar
+                UIView.transition(with: window,
+                                  duration: 0.3,
+                                  options: .transitionCrossDissolve,
+                                  animations: nil,
+                                  completion: nil)
+            }
+        }
     }
 }
 

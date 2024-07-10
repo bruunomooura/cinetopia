@@ -35,6 +35,7 @@
 		3F3E90FA2C38B1AF00802E61 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3E90F92C38B1AF00802E61 /* AppConfig.swift */; };
 		3F3E90FC2C38B32600802E61 /* DevelopmentStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3E90FB2C38B32600802E61 /* DevelopmentStatus.swift */; };
 		3F6AA4232C3EECD80087C768 /* APIKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6AA4222C3EECD80087C768 /* APIKeys.swift */; };
+		3F6AA4262C3F0D290087C768 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6AA4252C3F0D290087C768 /* TabBarController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +88,7 @@
 		3F3E90F92C38B1AF00802E61 /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
 		3F3E90FB2C38B32600802E61 /* DevelopmentStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevelopmentStatus.swift; sourceTree = "<group>"; };
 		3F6AA4222C3EECD80087C768 /* APIKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKeys.swift; sourceTree = "<group>"; };
+		3F6AA4252C3F0D290087C768 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -234,6 +236,7 @@
 		3F3E90D82C2C872100802E61 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				3F6AA4242C3F0CE00087C768 /* TabBarController */,
 				3F3E90B82C23503B00802E61 /* Home */,
 				3F3E90BD2C24BA1700802E61 /* Movies */,
 				3F3E90CD2C2A121500802E61 /* MovieDetails */,
@@ -334,6 +337,14 @@
 				3F3E90F12C373CBB00802E61 /* MoviesData.json */,
 			);
 			path = Mock;
+			sourceTree = "<group>";
+		};
+		3F6AA4242C3F0CE00087C768 /* TabBarController */ = {
+			isa = PBXGroup;
+			children = (
+				3F6AA4252C3F0D290087C768 /* TabBarController.swift */,
+			);
+			path = TabBarController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -472,6 +483,7 @@
 				3F3E908B2C22325F00802E61 /* HomeVC.swift in Sources */,
 				3F3E90FA2C38B1AF00802E61 /* AppConfig.swift in Sources */,
 				3F3E90E62C2DE45B00802E61 /* TMDBServiceManager.swift in Sources */,
+				3F6AA4262C3F0D290087C768 /* TabBarController.swift in Sources */,
 				3F3E90BF2C24BA6C00802E61 /* MoviesScreen.swift in Sources */,
 				3F3E90CF2C2A123000802E61 /* MovieDetailsVC.swift in Sources */,
 				3F3E90FC2C38B32600802E61 /* DevelopmentStatus.swift in Sources */,
