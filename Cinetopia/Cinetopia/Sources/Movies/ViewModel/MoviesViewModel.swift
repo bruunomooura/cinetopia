@@ -14,10 +14,9 @@ protocol MoviesViewModelProtocol: AnyObject {
 }
 
 final class MoviesViewModel {
-    private let movieService: MovieService
+    private let movieServiceProtocol: MovieServiceProtocol
+    private let movieManager: MovieManager
     private weak var delegate: MoviesViewModelProtocol?
-    private var moviesList: [Movie] = []
-    private var filteredMovies: [Movie] = []
     var isLoading: Bool = .init()
     private var language: String = "pt-BR"
     private var currentPage: Int = .zero
@@ -27,15 +26,16 @@ final class MoviesViewModel {
         }
     }
     public var noResults: Bool {
-        if filteredMovies.isEmpty {
+        if movieManager.filteredMovies.isEmpty {
             return true
         } else {
             return false
         }
     }
     
-    init(movieService: MovieService = AppConfig.movieService()) {
-        self.movieService = movieService
+    init(movieServiceProtocol: MovieServiceProtocol = AppConfig.movieService(), movieManager: MovieManager = MovieManager.shared) {
+        self.movieServiceProtocol = movieServiceProtocol
+        self.movieManager = movieManager
     }
     
     deinit {
@@ -44,17 +44,12 @@ final class MoviesViewModel {
 }
 
 extension MoviesViewModel {
-    
     public func delegate(delegate: MoviesViewModelProtocol?) {
         self.delegate = delegate
     }
     
     private func filterMovies() {
-        if searchText.isEmpty {
-            filteredMovies = moviesList
-        } else {
-            filteredMovies = moviesList.filter { $0.title.localizedCaseInsensitiveContains(searchText) }
-        }
+        movieManager.searchMovie(searchText)
         delegate?.searchText()
     }
     
@@ -63,13 +58,13 @@ extension MoviesViewModel {
         isLoading = true
         currentPage += 1
         print("Página atual: ", currentPage)
-        movieService.fetchPopularMovies(language: language, page: currentPage) { [weak self] result in
+        movieServiceProtocol.fetchPopularMovies(language: language, page: currentPage) { [weak self] result in
             guard let self = self else { return }
             
             switch result {
             case .success(let moviesResponse):
                 self.isLoading = false
-                self.moviesList = moviesResponse.results
+                self.movieManager.saveMovies(moviesResponse.results)
                 
             case .failure(let error):
                 self.isLoading = false
@@ -80,7 +75,6 @@ extension MoviesViewModel {
     }
     
     func updateView() {
-        self.filteredMovies = self.moviesList
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             self.delegate?.updateData()
@@ -94,7 +88,7 @@ extension MoviesViewModel {
         isLoading = true
         currentPage += 1
         
-        movieService.fetchPopularMovies(language: language, page: currentPage) { [weak self] result in
+        movieServiceProtocol.fetchPopularMovies(language: language, page: currentPage) { [weak self] result in
             guard let self = self else { return }
             
             print("Página atual: ", currentPage)
@@ -102,10 +96,9 @@ extension MoviesViewModel {
             switch result {
             case .success(let moviesResponse):
                 self.isLoading = false
-                let startIndex = self.moviesList.count
-                self.moviesList.append(contentsOf: moviesResponse.results)
-                let endIndex = self.moviesList.count
-                self.filteredMovies = self.moviesList
+                let startIndex = self.movieManager.moviesList.count
+                self.movieManager.appendMovies(moviesResponse.results)
+                let endIndex = self.movieManager.moviesList.count
                 let newIndexPaths = (startIndex..<endIndex).map { IndexPath(row: $0, section: 0) }
                 DispatchQueue.main.async { [weak self] in
                     guard let self = self else { return }
@@ -120,17 +113,23 @@ extension MoviesViewModel {
         }
     }
     
+    public func toggleFavoriteMovie(indexPath: IndexPath) {
+        movieManager.toggleFavoriteMovieStatus(indexPath)
+        filterMovies()
+        print(movieManager.moviesList[indexPath.row].favoriteMovie ?? true)
+    }
+    
     // MARK: - Config TableView
     public var numberOfRowsInSection: Int {
-        return filteredMovies.count
+        return movieManager.filteredMovies.count
     }
     
     public var limitIndexForDownloadingAdditionalData: Int {
-        return moviesList.count - 5
+        return movieManager.moviesList.count - 5
     }
     
     public func loadCurrentMovie(indexPath: IndexPath) -> Movie {
-        return filteredMovies[indexPath.row]
+        return movieManager.filteredMovies[indexPath.row]
     }
     
     public func heightForRow() -> CGFloat {

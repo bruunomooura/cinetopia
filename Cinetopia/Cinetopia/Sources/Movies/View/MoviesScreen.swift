@@ -7,21 +7,7 @@
 
 import UIKit
 
-//protocol MoviesScreenProtocol: AnyObject {
-//        func navigation(movie: Movie)
-//}
-
 final class MoviesScreen: UIView {
-    
-    //    private weak var delegate: MoviesScreenProtocol?
-    //
-    //    public func delegate(delegate: MoviesScreenProtocol?) {
-    //        self.delegate = delegate
-    //    }
-    
-    deinit {
-        print(Self.self, "- Deallocated")
-    }
     
     private lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
@@ -118,6 +104,10 @@ final class MoviesScreen: UIView {
         tableView.reloadData()
     }
     
+    public func reloadRows(_ indexPaths: [IndexPath]) {
+        tableView.reloadRows(at: indexPaths, with: .automatic)
+    }
+    
     public func insertRowsTableView(indexPaths: [IndexPath]) {
         tableView.insertRows(at: indexPaths, with: .none)
     }
@@ -127,6 +117,11 @@ final class MoviesScreen: UIView {
         noResultsLabel.isHidden = !noResults
     }
     
+    public func indexPath(for cell: UITableViewCell) -> IndexPath? {
+        return tableView.indexPath(for: cell)
+    }
+    
+    // MARK: - Initializers
     init() {
         super.init(frame: .zero)
         setup()
@@ -135,10 +130,14 @@ final class MoviesScreen: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    deinit {
+        print(Self.self, "- Deallocated")
+    }
 }
 
 extension MoviesScreen: ViewCode {
-    func addSubViews() {
+    func addSubviews() {
         addSubview(searchBar)
         addSubview(tableView)
         addSubview(noResultsLabel)

@@ -10,7 +10,7 @@ import Foundation
 final class AppConfig {
     static let currentDevelopmentStatus: DevelopmentStatus = .production
     
-    static func movieService() -> MovieService {
+    static func movieService() -> MovieServiceProtocol {
         print("Development Status:", currentDevelopmentStatus)
         switch currentDevelopmentStatus {
         case .development:

@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class MockServiceManager: MovieService {
+final class MockServiceManager: MovieServiceProtocol {
     
     init() {}
     

@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol MovieService {
+protocol MovieServiceProtocol {
     func fetchPopularMovies(language: String, page: Int, completion: @escaping (Result<MovieResponse, Error>) -> Void)
 }

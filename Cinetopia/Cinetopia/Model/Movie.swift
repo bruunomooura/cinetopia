@@ -11,17 +11,20 @@ struct MovieResponse: Decodable {
     let results: [Movie]
 }
 
-struct Movie: Decodable {
+struct Movie: Decodable, Equatable, Hashable {
     let id: Int
     let synopsis: String
+    let popularity: Double
     var imagePath: String
     let releaseDate: String
     let title: String
     let voteAverage: Double
+    private(set) var favoriteMovie: Bool? = .init()
     
     enum CodingKeys: String, CodingKey {
         case id
         case synopsis = "overview"
+        case popularity
         case imagePath = "poster_path"
         case releaseDate = "release_date"
         case title
@@ -37,5 +40,17 @@ struct Movie: Decodable {
     var imageURL: String {
         let imageSize = "w185"
         return APIKeys.imageBaseURL + imageSize + self.imagePath
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+    
+    static func ==(lhs: Movie, rhs: Movie) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
+    public mutating func toggleFavoriteMovieStatus() {
+       favoriteMovie?.toggle()
     }
 }

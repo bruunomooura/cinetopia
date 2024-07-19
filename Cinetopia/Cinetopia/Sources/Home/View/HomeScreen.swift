@@ -56,17 +56,35 @@ final class HomeScreen: UIView {
         button.clipsToBounds = true
         button.layer.cornerRadius = 34
         button.backgroundColor = .buttonBackground
-        button.addTarget(self, action: #selector(tappedWelcomeButton), for: .touchUpInside)
+        button.addTarget(self, action: #selector(tappedWelcomeButton), for: .touchDown)
+          
         
         return button
     }()
     
-    @objc 
+    @objc
     private func tappedWelcomeButton(_ sender: UIButton) {
-        print("tapped button")
-        delegate?.navigation()
+        scaleDown(sender)
+        scaleUp(sender)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
+            guard let self = self else { return }
+            self.delegate?.navigation()
+        }
     }
     
+    private func scaleDown(_ sender: UIButton) {
+        UIView.animate(withDuration: 0.1, animations: {
+            sender.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
+            sender.alpha = 0.5
+        })
+    }
+    
+    private func scaleUp(_ sender: UIButton) {
+        UIView.animate(withDuration: 0.1, animations: {
+            sender.transform = CGAffineTransform.identity
+            sender.alpha = 1.0
+        })
+    }
     
     private lazy var stackView: UIStackView = {
        let stackView = UIStackView()
@@ -89,7 +107,7 @@ final class HomeScreen: UIView {
 }
 
 extension HomeScreen: ViewCode {
-    func addSubViews() {
+    func addSubviews() {
         addSubview(stackView)
         stackView.addArrangedSubview(logoImageView)
         stackView.addArrangedSubview(coupleImageView)

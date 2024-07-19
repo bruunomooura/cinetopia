@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class TMDBServiceManager: MovieService {
+final class TMDBServiceManager: MovieServiceProtocol {
     private var dataTask: URLSessionDataTask?
     
     init() {}

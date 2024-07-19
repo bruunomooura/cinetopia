@@ -9,26 +9,29 @@ import UIKit
 
 final class MoviesVC: UIViewController {
     
-    deinit {
-        print(Self.self, "- Deallocated")
-    }
-    
     var viewModel: MoviesViewModel = MoviesViewModel()
     var screen: MoviesScreen?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
-        //        screen?.delegate(delegate: self)
         screen?.setupTableView(delegate: self, dataSource: self)
         screen?.setupSearchBar(delegate: self)
         viewModel.delegate(delegate: self)
         viewModel.loadDataMovies()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        updateData()
+    }
+    
     override func loadView() {
         self.screen = MoviesScreen()
         view = screen
+    }
+    
+    deinit {
+        print(Self.self, "- Deallocated")
     }
     
     private func setupNavigationBar() {
@@ -54,6 +57,7 @@ extension MoviesVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: MovieTableViewCell.identifier, for: indexPath) as? MovieTableViewCell else { return UITableViewCell() }
         let movie = viewModel.loadCurrentMovie(indexPath: indexPath)
+        cell.delegate(delegate: self)
         cell.configureCell(movie: movie)
         return cell
     }
@@ -82,6 +86,17 @@ extension MoviesVC: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
+    }
+}
+
+extension MoviesVC: MovieTableViewCellProtocol {
+    func didSelectedFavoriteButton(_ sender: UIButton) {
+        guard let cell = sender.superview?.superview as? MovieTableViewCell else { return }
+        guard let indexPath = screen?.indexPath(for: cell) else { return }
+        
+        viewModel.toggleFavoriteMovie(indexPath: indexPath)
+        screen?.reloadRows([indexPath])
+        print("Botão tocado")
     }
 }
 
