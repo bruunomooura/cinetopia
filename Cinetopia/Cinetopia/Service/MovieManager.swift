@@ -41,15 +41,15 @@ final class MovieManager {
         filteredMovies = moviesList
     }
     
-    public func toggleFavoriteMovieStatus(_ indexPath: IndexPath) {
-        guard let tempIndex = moviesList.firstIndex(where: { $0.id == filteredMovies[indexPath.row].id }) else { return }
-        filteredMovies[tempIndex].toggleFavoriteMovieStatus()
-        moviesList[tempIndex].toggleFavoriteMovieStatus()
+    public func toggleFavoriteMovieStatus(_ id: Int) {
+        guard let indexMoviesList = moviesList.firstIndex(where: { $0.id == id }) else { return }
+        moviesList[indexMoviesList].toggleFavoriteMovieStatus()
+        guard let indexFilteredMovies = filteredMovies.firstIndex(where: { $0.id == id }) else { return }
+        filteredMovies[indexFilteredMovies].toggleFavoriteMovieStatus()
     }
     
     public func removeFavoriteMovie(_ id: Int) {
-        guard let tempIndex = moviesList.firstIndex(where: { $0.id == id }) else { return }
-        filteredMovies[tempIndex].toggleFavoriteMovieStatus()
-        moviesList[tempIndex].toggleFavoriteMovieStatus()
+        guard let indexMoviesList = moviesList.firstIndex(where: { $0.id == id }) else { return }
+        moviesList[indexMoviesList].toggleFavoriteMovieStatus()
     }
 }

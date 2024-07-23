@@ -48,7 +48,7 @@ extension MoviesViewModel {
         self.delegate = delegate
     }
     
-    private func filterMovies() {
+    public func filterMovies() {
         movieManager.searchMovie(searchText)
         delegate?.searchText()
     }
@@ -113,10 +113,8 @@ extension MoviesViewModel {
         }
     }
     
-    public func toggleFavoriteMovie(indexPath: IndexPath) {
-        movieManager.toggleFavoriteMovieStatus(indexPath)
-        filterMovies()
-        print(movieManager.moviesList[indexPath.row].favoriteMovie ?? true)
+    public func toggleFavoriteMovie(id: Int) {
+        movieManager.toggleFavoriteMovieStatus(id)
     }
     
     // MARK: - Config TableView

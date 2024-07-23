@@ -22,6 +22,7 @@ final class MoviesVC: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        viewModel.filterMovies()
         updateData()
     }
     
@@ -93,10 +94,9 @@ extension MoviesVC: MovieTableViewCellProtocol {
     func didSelectedFavoriteButton(_ sender: UIButton) {
         guard let cell = sender.superview?.superview as? MovieTableViewCell else { return }
         guard let indexPath = screen?.indexPath(for: cell) else { return }
-        
-        viewModel.toggleFavoriteMovie(indexPath: indexPath)
+        let movie = viewModel.loadCurrentMovie(indexPath: indexPath)
+        viewModel.toggleFavoriteMovie(id: movie.id)
         screen?.reloadRows([indexPath])
-        print("Botão tocado")
     }
 }
 
