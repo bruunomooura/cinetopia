@@ -113,7 +113,6 @@ extension FavoriteMoviesVC: FavoriteMoviesCollectionViewCellProtocol {
         guard let indexPath = screen?.indexPath(for: cell) else { return }
         let movie = viewModel.loadCurrentMovie(indexPath: indexPath)
         viewModel.removeFavoriteMovie(id: movie.id)
-        updateData()
     }
 }
 

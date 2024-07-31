@@ -90,10 +90,10 @@ final class FavoriteMoviesCollectionViewCell: UICollectionViewCell {
         self.delegate = delegate
     }
     
-    public func configureCell(movie: Movie) {
+    public func configureCell(movie: FavoriteMovie) {
         moviePosterImageView.loadImageFromURL(movie.imageURL)
         movieTitleLabel.text = movie.title
-        let iconImage = UIImage(systemName: movie.favoriteMovie == true ? "heart.fill" : "heart")
+        let iconImage = UIImage(systemName: "heart.fill")
         favoriteButton.setImage(iconImage, for: .normal)
     }
 }

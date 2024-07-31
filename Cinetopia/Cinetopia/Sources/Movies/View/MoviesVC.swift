@@ -95,7 +95,7 @@ extension MoviesVC: MovieTableViewCellProtocol {
         guard let cell = sender.superview?.superview as? MovieTableViewCell else { return }
         guard let indexPath = screen?.indexPath(for: cell) else { return }
         let movie = viewModel.loadCurrentMovie(indexPath: indexPath)
-        viewModel.toggleFavoriteMovie(id: movie.id)
+        viewModel.toggleFavoriteMovie(movie: movie)
         screen?.reloadRows([indexPath])
     }
 }

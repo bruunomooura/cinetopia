@@ -1,1 +1,3 @@
-Cinetopia/Cinetopia/Service/APIKeys.swift
+Cinetopia/Cinetopia/Service/MoviesService/APIKeys.swift
+*.xcsettings
+*.xcbkptlist

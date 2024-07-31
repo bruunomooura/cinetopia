@@ -36,6 +36,10 @@
 		3F3E90FC2C38B32600802E61 /* DevelopmentStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3E90FB2C38B32600802E61 /* DevelopmentStatus.swift */; };
 		3F6AA4232C3EECD80087C768 /* APIKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6AA4222C3EECD80087C768 /* APIKeys.swift */; };
 		3F6AA4262C3F0D290087C768 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6AA4252C3F0D290087C768 /* TabBarController.swift */; };
+		3FC259DF2C530D64008ABB85 /* Cinetopia.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3FC259DD2C530D64008ABB85 /* Cinetopia.xcdatamodeld */; };
+		3FC259E12C5312DE008ABB85 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC259E02C5312DE008ABB85 /* CoreDataManager.swift */; };
+		3FC25A272C53FAE5008ABB85 /* FavoriteMovie+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC25A252C53FAE5008ABB85 /* FavoriteMovie+CoreDataClass.swift */; };
+		3FC25A282C53FAE5008ABB85 /* FavoriteMovie+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC25A262C53FAE5008ABB85 /* FavoriteMovie+CoreDataProperties.swift */; };
 		3FF6D50C2C4014700046B636 /* FavoriteMoviesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF6D50B2C4014700046B636 /* FavoriteMoviesVC.swift */; };
 		3FF6D50E2C4014880046B636 /* FavoriteMoviesScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF6D50D2C4014880046B636 /* FavoriteMoviesScreen.swift */; };
 		3FF6D5102C4014980046B636 /* FavoriteMoviesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF6D50F2C4014980046B636 /* FavoriteMoviesViewModel.swift */; };
@@ -95,6 +99,10 @@
 		3F3E90FB2C38B32600802E61 /* DevelopmentStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevelopmentStatus.swift; sourceTree = "<group>"; };
 		3F6AA4222C3EECD80087C768 /* APIKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKeys.swift; sourceTree = "<group>"; };
 		3F6AA4252C3F0D290087C768 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		3FC259DE2C530D64008ABB85 /* CinetopiaCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CinetopiaCoreData.xcdatamodel; sourceTree = "<group>"; };
+		3FC259E02C5312DE008ABB85 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		3FC25A252C53FAE5008ABB85 /* FavoriteMovie+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavoriteMovie+CoreDataClass.swift"; sourceTree = "<group>"; };
+		3FC25A262C53FAE5008ABB85 /* FavoriteMovie+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavoriteMovie+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		3FF6D50B2C4014700046B636 /* FavoriteMoviesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteMoviesVC.swift; sourceTree = "<group>"; };
 		3FF6D50D2C4014880046B636 /* FavoriteMoviesScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteMoviesScreen.swift; sourceTree = "<group>"; };
 		3FF6D50F2C4014980046B636 /* FavoriteMoviesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteMoviesViewModel.swift; sourceTree = "<group>"; };
@@ -225,11 +233,8 @@
 		3F3E90D62C2C468900802E61 /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				3F6AA4222C3EECD80087C768 /* APIKeys.swift */,
-				3F3E90F32C3874DE00802E61 /* JSONFile.swift */,
-				3F3E90F72C38AB1500802E61 /* MockServiceManager.swift */,
-				3F3E90E52C2DE45B00802E61 /* TMDBServiceManager.swift */,
-				3FF6D5152C483F550046B636 /* MovieManager.swift */,
+				3FC259DA2C5301B9008ABB85 /* CoreData */,
+				3FC259DC2C53041C008ABB85 /* MoviesService */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -359,6 +364,29 @@
 				3F6AA4252C3F0D290087C768 /* TabBarController.swift */,
 			);
 			path = TabBarController;
+			sourceTree = "<group>";
+		};
+		3FC259DA2C5301B9008ABB85 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				3FC25A252C53FAE5008ABB85 /* FavoriteMovie+CoreDataClass.swift */,
+				3FC25A262C53FAE5008ABB85 /* FavoriteMovie+CoreDataProperties.swift */,
+				3FC259DD2C530D64008ABB85 /* Cinetopia.xcdatamodeld */,
+				3FC259E02C5312DE008ABB85 /* CoreDataManager.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		3FC259DC2C53041C008ABB85 /* MoviesService */ = {
+			isa = PBXGroup;
+			children = (
+				3F6AA4222C3EECD80087C768 /* APIKeys.swift */,
+				3F3E90F32C3874DE00802E61 /* JSONFile.swift */,
+				3F3E90F72C38AB1500802E61 /* MockServiceManager.swift */,
+				3FF6D5152C483F550046B636 /* MovieManager.swift */,
+				3F3E90E52C2DE45B00802E61 /* TMDBServiceManager.swift */,
+			);
+			path = MoviesService;
 			sourceTree = "<group>";
 		};
 		3FF6D5072C4013EE0046B636 /* FavoriteMovies */ = {
@@ -539,6 +567,7 @@
 				3F3E90BF2C24BA6C00802E61 /* MoviesScreen.swift in Sources */,
 				3F3E90CF2C2A123000802E61 /* MovieDetailsVC.swift in Sources */,
 				3F3E90FC2C38B32600802E61 /* DevelopmentStatus.swift in Sources */,
+				3FC259E12C5312DE008ABB85 /* CoreDataManager.swift in Sources */,
 				3F3E90BA2C23506100802E61 /* HomeScreen.swift in Sources */,
 				3F3E90C62C25EDA000802E61 /* Movie.swift in Sources */,
 				3F3E90C32C24BAA900802E61 /* MoviesViewModel.swift in Sources */,
@@ -555,8 +584,11 @@
 				3F3E90E92C2F490100802E61 /* UIImageView+Extensions.swift in Sources */,
 				3FF6D5122C4014FF0046B636 /* FavoriteMoviesCollectionViewCell.swift in Sources */,
 				3F3E90B72C23500100802E61 /* ViewCode.swift in Sources */,
+				3FC25A272C53FAE5008ABB85 /* FavoriteMovie+CoreDataClass.swift in Sources */,
+				3FC25A282C53FAE5008ABB85 /* FavoriteMovie+CoreDataProperties.swift in Sources */,
 				3F3E90F42C3874DE00802E61 /* JSONFile.swift in Sources */,
 				3FF6D50E2C4014880046B636 /* FavoriteMoviesScreen.swift in Sources */,
+				3FC259DF2C530D64008ABB85 /* Cinetopia.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -735,6 +767,7 @@
 				INFOPLIST_FILE = Cinetopia/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -762,6 +795,7 @@
 				INFOPLIST_FILE = Cinetopia/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -893,6 +927,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		3FC259DD2C530D64008ABB85 /* Cinetopia.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				3FC259DE2C530D64008ABB85 /* CinetopiaCoreData.xcdatamodel */,
+			);
+			currentVersion = 3FC259DE2C530D64008ABB85 /* CinetopiaCoreData.xcdatamodel */;
+			path = Cinetopia.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 3F3E907B2C22325F00802E61 /* Project object */;
 }

@@ -16,6 +16,7 @@ protocol MoviesViewModelProtocol: AnyObject {
 final class MoviesViewModel {
     private let movieServiceProtocol: MovieServiceProtocol
     private let movieManager: MovieManager
+    private let coreData: CoreDataManagerProtocol
     private weak var delegate: MoviesViewModelProtocol?
     var isLoading: Bool = .init()
     private var language: String = "pt-BR"
@@ -33,9 +34,16 @@ final class MoviesViewModel {
         }
     }
     
-    init(movieServiceProtocol: MovieServiceProtocol = AppConfig.movieService(), movieManager: MovieManager = MovieManager.shared) {
+//    public var favoriteMovies: [FavoriteMovie] {
+//        return coreData.getFavoriteMovies
+//    }
+    
+    init(movieServiceProtocol: MovieServiceProtocol = AppConfig.movieService(),
+         movieManager: MovieManager = MovieManager.shared,
+         coreData: CoreDataManagerProtocol = CoreDataManager.shared) {
         self.movieServiceProtocol = movieServiceProtocol
         self.movieManager = movieManager
+        self.coreData = coreData
     }
     
     deinit {
@@ -113,8 +121,18 @@ extension MoviesViewModel {
         }
     }
     
-    public func toggleFavoriteMovie(id: Int) {
-        movieManager.toggleFavoriteMovieStatus(id)
+    public func toggleFavoriteMovie(movie: Movie) { 
+        movieManager.toggleFavoriteMovieStatus(movie.id) { favorite in
+            switch favorite {
+            case true:
+                coreData.appendFavoriteMovie(movie: movie) { _ in
+                }
+                
+            case false:
+                coreData.deleteFavoriteMovie(id: Int64(movie.id)) { _ in
+                }
+            }
+        }
     }
     
     // MARK: - Config TableView

@@ -12,17 +12,20 @@ protocol FavoriteMoviesViewModelProtocol: AnyObject {
 }
 
 final class FavoriteMoviesViewModel {
+    private let coreData: CoreDataManagerProtocol
     private weak var delegate: FavoriteMoviesViewModelProtocol?
     private let movieManager: MovieManager
     public var noFavorites: Bool {
-        if movieManager.favoriteMovies.isEmpty {
+        if coreData.getFavoriteMovies.isEmpty {
             return true
         } else {
             return false
         }
     }
     
-    init(movieManager: MovieManager = MovieManager.shared) {
+    init(coreData: CoreDataManagerProtocol = CoreDataManager.shared,
+         movieManager: MovieManager = MovieManager.shared) {
+        self.coreData = coreData
         self.movieManager = movieManager
     }
     
@@ -37,14 +40,19 @@ extension FavoriteMoviesViewModel {
     }
     
     public var numberOfRowsInSection: Int {
-        return  movieManager.favoriteMovies.count
+        return  coreData.getFavoriteMovies.count
     }
     
-    public func loadCurrentMovie(indexPath: IndexPath) -> Movie {
-        return  movieManager.favoriteMovies[indexPath.row]
+    public func loadCurrentMovie(indexPath: IndexPath) -> FavoriteMovie {
+        return  coreData.getFavoriteMovies[indexPath.row]
     }
     
-    public func removeFavoriteMovie(id: Int) {
-        movieManager.removeFavoriteMovie(id)
+    public func removeFavoriteMovie(id: Int64) {
+        coreData.deleteFavoriteMovie(id: id) { success in
+            if success {
+                movieManager.toggleFavoriteMovieStatus(Int(id)) { _ in }
+                delegate?.updateData()
+            }
+        }
     }
 }
