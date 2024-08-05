@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FavoriteMoviesCollectionReusableView: UICollectionReusableView {
+final class FavoriteMoviesCollectionReusableView: UICollectionReusableView {
     
     static let identifier: String = String(describing: FavoriteMoviesCollectionReusableView.self)
     

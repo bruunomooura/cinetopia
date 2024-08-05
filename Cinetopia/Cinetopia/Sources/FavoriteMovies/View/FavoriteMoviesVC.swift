@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FavoriteMoviesVC: UIViewController {
+final class FavoriteMoviesVC: UIViewController {
     
     var viewModel: FavoriteMoviesViewModel = FavoriteMoviesViewModel()
     var screen: FavoriteMoviesScreen?

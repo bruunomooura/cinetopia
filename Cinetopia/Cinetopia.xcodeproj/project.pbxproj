@@ -40,6 +40,7 @@
 		3FC259E12C5312DE008ABB85 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC259E02C5312DE008ABB85 /* CoreDataManager.swift */; };
 		3FC25A272C53FAE5008ABB85 /* FavoriteMovie+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC25A252C53FAE5008ABB85 /* FavoriteMovie+CoreDataClass.swift */; };
 		3FC25A282C53FAE5008ABB85 /* FavoriteMovie+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC25A262C53FAE5008ABB85 /* FavoriteMovie+CoreDataProperties.swift */; };
+		3FC25A2A2C5C0228008ABB85 /* JSONDecoderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC25A292C5C0228008ABB85 /* JSONDecoderService.swift */; };
 		3FF6D50C2C4014700046B636 /* FavoriteMoviesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF6D50B2C4014700046B636 /* FavoriteMoviesVC.swift */; };
 		3FF6D50E2C4014880046B636 /* FavoriteMoviesScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF6D50D2C4014880046B636 /* FavoriteMoviesScreen.swift */; };
 		3FF6D5102C4014980046B636 /* FavoriteMoviesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF6D50F2C4014980046B636 /* FavoriteMoviesViewModel.swift */; };
@@ -103,6 +104,7 @@
 		3FC259E02C5312DE008ABB85 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		3FC25A252C53FAE5008ABB85 /* FavoriteMovie+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavoriteMovie+CoreDataClass.swift"; sourceTree = "<group>"; };
 		3FC25A262C53FAE5008ABB85 /* FavoriteMovie+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavoriteMovie+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		3FC25A292C5C0228008ABB85 /* JSONDecoderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONDecoderService.swift; sourceTree = "<group>"; };
 		3FF6D50B2C4014700046B636 /* FavoriteMoviesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteMoviesVC.swift; sourceTree = "<group>"; };
 		3FF6D50D2C4014880046B636 /* FavoriteMoviesScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteMoviesScreen.swift; sourceTree = "<group>"; };
 		3FF6D50F2C4014980046B636 /* FavoriteMoviesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteMoviesViewModel.swift; sourceTree = "<group>"; };
@@ -385,6 +387,7 @@
 				3F3E90F72C38AB1500802E61 /* MockServiceManager.swift */,
 				3FF6D5152C483F550046B636 /* MovieManager.swift */,
 				3F3E90E52C2DE45B00802E61 /* TMDBServiceManager.swift */,
+				3FC25A292C5C0228008ABB85 /* JSONDecoderService.swift */,
 			);
 			path = MoviesService;
 			sourceTree = "<group>";
@@ -574,6 +577,7 @@
 				3F3E90F82C38AB1500802E61 /* MockServiceManager.swift in Sources */,
 				3FF6D50C2C4014700046B636 /* FavoriteMoviesVC.swift in Sources */,
 				3F3E90C92C25FB9A00802E61 /* MovieTableViewCell.swift in Sources */,
+				3FC25A2A2C5C0228008ABB85 /* JSONDecoderService.swift in Sources */,
 				3FF6D5162C483F550046B636 /* MovieManager.swift in Sources */,
 				3F3E90F62C38AACE00802E61 /* MovieServiceProtocol.swift in Sources */,
 				3F3E90872C22325F00802E61 /* AppDelegate.swift in Sources */,

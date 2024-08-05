@@ -34,10 +34,6 @@ final class MoviesViewModel {
         }
     }
     
-//    public var favoriteMovies: [FavoriteMovie] {
-//        return coreData.getFavoriteMovies
-//    }
-    
     init(movieServiceProtocol: MovieServiceProtocol = AppConfig.movieService(),
          movieManager: MovieManager = MovieManager.shared,
          coreData: CoreDataManagerProtocol = CoreDataManager.shared) {

@@ -15,7 +15,7 @@ protocol CoreDataManagerProtocol: AnyObject {
     func deleteFavoriteMovie(id: Int64, completion: (Bool) -> Void)
 }
 
-class CoreDataManager: NSObject, CoreDataManagerProtocol {
+final class CoreDataManager: NSObject, CoreDataManagerProtocol {
     static let shared = CoreDataManager()
     
     private override init() {}

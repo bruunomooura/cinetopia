@@ -9,8 +9,13 @@ import Foundation
 
 final class TMDBServiceManager: MovieServiceProtocol {
     private var dataTask: URLSessionDataTask?
+    private let session: URLSession
+    private let decoderService: JSONDecoderService
     
-    init() {}
+    init(session: URLSession = .shared, decoderService: JSONDecoderService = JSONDecoderService()) {
+        self.session = session
+        self.decoderService = decoderService
+    }
     
     deinit {
         print(Self.self, "- Deallocated")
@@ -18,7 +23,6 @@ final class TMDBServiceManager: MovieServiceProtocol {
     }
     
     func fetchPopularMovies(language: String, page: Int, completion: @escaping (Result<MovieResponse, Error>) -> Void) {
-        let session = URLSession.shared
         guard let url = URL(string: "https://api.themoviedb.org/3/movie/popular") else { return }
         
         guard var components = URLComponents(url: url, resolvingAgainstBaseURL: true) else { return }
@@ -36,8 +40,8 @@ final class TMDBServiceManager: MovieServiceProtocol {
             "Authorization": "Bearer \(APIKeys.tmdbAPIToken)"
         ]
         
-        dataTask = session.dataTask(with: request) { data, response, error in
-            //            guard let self = self else { return }
+        dataTask = session.dataTask(with: request) { [ weak self ] data, response, error in
+            guard let self = self else { return }
             if let error {
                 print("Error: \(error.localizedDescription)")
                 completion(.failure(error))
@@ -49,10 +53,8 @@ final class TMDBServiceManager: MovieServiceProtocol {
                 completion(.failure(MoviesLoadingError.errorReceivingData))
                 return }
             
-            do {
-                let decoder = JSONDecoder()
-                
-                let movies = try decoder.decode(MovieResponse.self, from: data)
+            do {                
+                let movies = try self.decoderService.decode(MovieResponse.self, from: data)
                 DispatchQueue.main.async {
                     completion(.success(movies))
                 }
