@@ -11,11 +11,17 @@ final class MoviesVC: UIViewController {
     
     var viewModel: MoviesViewModel = MoviesViewModel()
     var screen: MoviesScreen?
+    private var tableViewDelegate: MoviesTableViewDelegate?
+    private var tableViewDataSource: MoviesTableViewDataSource?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
-        screen?.setupTableView(delegate: self, dataSource: self)
+        tableViewDelegate = MoviesTableViewDelegate(viewController: self)
+        tableViewDataSource = MoviesTableViewDataSource(viewController: self)
+        guard let delegate = tableViewDelegate,
+              let dataSource = tableViewDataSource else { return }
+        screen?.setupTableView(delegate: delegate, dataSource: dataSource)
         screen?.setupSearchBar(delegate: self)
         viewModel.delegate(delegate: self)
         viewModel.loadDataMovies()
@@ -47,36 +53,6 @@ final class MoviesVC: UIViewController {
     func navigation(movie: Movie) {
         let movieDetailsViewModel = MovieDetailsViewModel(movie: movie)
         navigationController?.pushViewController(MovieDetailsVC(viewModel: movieDetailsViewModel), animated: true)
-    }
-}
-
-extension MoviesVC: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.numberOfRowsInSection
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: MovieTableViewCell.identifier, for: indexPath) as? MovieTableViewCell else { return UITableViewCell() }
-        let movie = viewModel.loadCurrentMovie(indexPath: indexPath)
-        cell.delegate(delegate: self)
-        cell.configureCell(movie: movie)
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        let movie = viewModel.loadCurrentMovie(indexPath: indexPath)
-        navigation(movie: movie)
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return viewModel.heightForRow()
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if indexPath.row >= viewModel.limitIndexForDownloadingAdditionalData && !viewModel.isLoading {
-            viewModel.additionalLoadData()
-        }
     }
 }
 

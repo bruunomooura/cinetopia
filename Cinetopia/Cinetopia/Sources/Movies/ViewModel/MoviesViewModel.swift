@@ -117,7 +117,7 @@ extension MoviesViewModel {
         }
     }
     
-    public func toggleFavoriteMovie(movie: Movie) { 
+    public func toggleFavoriteMovie(movie: Movie) {
         movieManager.toggleFavoriteMovieStatus(movie.id) { favorite in
             switch favorite {
             case true:
