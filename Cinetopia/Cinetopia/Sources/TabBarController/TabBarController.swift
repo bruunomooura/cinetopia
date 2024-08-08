@@ -28,9 +28,9 @@ final class TabBarController: UITabBarController {
         
         guard let items = tabBar.items else { return }
         items[0].title = "tabBar.titleOne.movies".localized
-        items[0].image = UIImage(systemName: "play.square")
+        items[0].image = UIImage(systemName: SystemImage.playSquare.rawValue)
         
         items[1].title = "tabBar.titleTwo.favorites".localized
-        items[1].image = UIImage(systemName: "heart.square")
+        items[1].image = UIImage(systemName: SystemImage.heartSquare.rawValue)
     }
 }

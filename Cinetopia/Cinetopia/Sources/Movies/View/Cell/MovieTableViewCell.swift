@@ -98,7 +98,10 @@ final class MovieTableViewCell: UITableViewCell {
         moviePosterImageView.loadImageFromURL(movie.imageURL)
         movieTitleLabel.text = movie.title
         movieReleaseDateLabel.text = "movies.tableview.subTitle \(movie.formattedReleaseDate)".localized
-        let iconImage = UIImage(systemName: movie.favoriteMovie == true ? "heart.fill" : "heart")?.withTintColor(.buttonBackground, renderingMode: .alwaysOriginal)
+        let iconImage = UIImage(systemName: movie.favoriteMovie == true
+                                ? SystemImage.heartFill.rawValue
+                                : SystemImage.heart.rawValue)?
+            .withTintColor(.buttonBackground, renderingMode: .alwaysOriginal)
         favoriteButton.setImage(iconImage, for: .normal)
     }
     

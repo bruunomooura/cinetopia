@@ -8,6 +8,7 @@
 import Foundation
 
 protocol MovieManagerProtocol: AnyObject {
+    var moviesListSet: Set<Movie> { get }
     var moviesList: [Movie] { get }
     var filteredMovies: [Movie] { get }
     var favoriteMovies: [Movie] { get }
@@ -26,7 +27,7 @@ final class MovieManager: MovieManagerProtocol {
         self.coreData = coreData
     }
     
-    private var moviesListSet: Set<Movie> = []
+    private(set) var moviesListSet: Set<Movie> = []
     private(set) var moviesList: [Movie] = []
     private(set) var filteredMovies: [Movie] = []
     var favoriteMovies: [Movie] {
@@ -61,7 +62,8 @@ final class MovieManager: MovieManagerProtocol {
             tempMoviesListSet.insert(movie)
         }
         
-        moviesList.append(contentsOf: Array(tempMoviesListSet).sorted(by: { $0.popularity > $1.popularity }))
+        moviesListSet.formUnion(tempMoviesListSet)
+        moviesList = Array(moviesListSet).sorted(by: { $0.popularity > $1.popularity })
         
         for movie in moviesList {
             if movie.favoriteMovie == false {

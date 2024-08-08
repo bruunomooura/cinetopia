@@ -93,7 +93,7 @@ final class FavoriteMoviesCollectionViewCell: UICollectionViewCell {
     public func configureCell(movie: FavoriteMovie) {
         moviePosterImageView.loadImageFromURL(movie.imageURL)
         movieTitleLabel.text = movie.title
-        let iconImage = UIImage(systemName: "heart.fill")
+        let iconImage = UIImage(systemName: SystemImage.heartFill.rawValue)
         favoriteButton.setImage(iconImage, for: .normal)
     }
 }

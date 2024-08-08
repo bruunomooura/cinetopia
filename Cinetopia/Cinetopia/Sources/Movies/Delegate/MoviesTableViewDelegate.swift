@@ -33,4 +33,9 @@ final class MoviesTableViewDelegate: NSObject, UITableViewDelegate {
             viewModel.additionalLoadData()
         }
     }
+
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        guard let viewController = viewController else { return }
+        viewController.screen?.hideKeyboard()
+    }
 }

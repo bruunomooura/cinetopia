@@ -121,6 +121,10 @@ final class MoviesScreen: UIView {
         return tableView.indexPath(for: cell)
     }
     
+    public func hideKeyboard() {
+        searchBar.resignFirstResponder()
+    }
+    
     // MARK: - Initializers
     init() {
         super.init(frame: .zero)
