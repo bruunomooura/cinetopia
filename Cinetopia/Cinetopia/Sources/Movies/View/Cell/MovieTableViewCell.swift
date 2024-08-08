@@ -54,10 +54,10 @@ final class MovieTableViewCell: UITableViewCell {
         configurationButton.background.strokeColor = .buttonBackground
         configurationButton.background.strokeWidth = 2
         configurationButton.baseBackgroundColor = .clear
-        configurationButton.title = "Favoritar"
+        configurationButton.title = "movies.tableView.button.title".localized
         
         let font = UIFont.systemFont(ofSize: 14)
-        configurationButton.attributedTitle = AttributedString("Favoritar", attributes: AttributeContainer([
+        configurationButton.attributedTitle = AttributedString("movies.tableView.button.title".localized, attributes: AttributeContainer([
             .font: font, .foregroundColor: UIColor.white
         ]))
         button.configuration = configurationButton
@@ -97,7 +97,7 @@ final class MovieTableViewCell: UITableViewCell {
     public func configureCell(movie: Movie) {
         moviePosterImageView.loadImageFromURL(movie.imageURL)
         movieTitleLabel.text = movie.title
-        movieReleaseDateLabel.text = "Lançamento: \(movie.formattedReleaseDate)"
+        movieReleaseDateLabel.text = "movies.tableview.subTitle \(movie.formattedReleaseDate)".localized
         let iconImage = UIImage(systemName: movie.favoriteMovie == true ? "heart.fill" : "heart")?.withTintColor(.buttonBackground, renderingMode: .alwaysOriginal)
         favoriteButton.setImage(iconImage, for: .normal)
     }

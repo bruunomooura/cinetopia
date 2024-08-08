@@ -45,7 +45,7 @@ final class FavoriteMoviesScreen: UIView {
     private lazy var noFavoriteMoviesLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Você ainda não favoritou nenhum filme"
+        label.text = "favoriteMovies.title.noResults".localized
         label.font = .systemFont(ofSize: 24, weight: .bold)
         label.textAlignment = .center
         label.numberOfLines = 0

@@ -13,7 +13,7 @@ import CoreData
 extension FavoriteMovie {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<FavoriteMovie> {
-        return NSFetchRequest<FavoriteMovie>(entityName: "FavoriteMovie")
+        return NSFetchRequest<FavoriteMovie>(entityName: String(describing: FavoriteMovie.self))
     }
 
     @NSManaged public var id: Int64

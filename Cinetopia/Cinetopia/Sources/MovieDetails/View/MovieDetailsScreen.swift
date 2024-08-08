@@ -63,7 +63,7 @@ final class MovieDetailsScreen: UIView {
     func configData(movie: Movie) {
         movieTitleLabel.text = movie.title
         moviePosterImageView.loadImageFromURL(movie.imageURL)
-        movieRateLabel.text = "Classificação dos usuários: \(movie.voteAverage)"
+        movieRateLabel.text = "moviesDetails.subTitle \(movie.voteAverage)".localized
         movieSynopsisLabel.text = movie.synopsis
     }
     

@@ -42,7 +42,7 @@ final class MoviesVC: UIViewController {
     }
     
     private func setupNavigationBar() {
-        title = "Filmes populares"
+        title = "tabBar.titleOne.movies".localized
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.largeTitleTextAttributes = [
             NSAttributedString.Key.foregroundColor : UIColor.white

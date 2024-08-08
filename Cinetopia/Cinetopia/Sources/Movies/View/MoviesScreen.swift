@@ -12,7 +12,7 @@ final class MoviesScreen: UIView {
     private lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.translatesAutoresizingMaskIntoConstraints = false
-        searchBar.placeholder = "Pesquisar"
+        searchBar.placeholder = "movies.searchBar.placeholder".localized
         searchBar.layer.cornerRadius = 10
         searchBar.layer.masksToBounds = true
         searchBar.searchTextField.borderStyle = .none
@@ -56,7 +56,7 @@ final class MoviesScreen: UIView {
         doneToolbar.barStyle = .default
         doneToolbar.items = [
             UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
-            UIBarButtonItem(title: "Concluído", style: .done, target: self, action: #selector(doneButtonAction))
+            UIBarButtonItem(title: "movies.toolBar.button.title".localized, style: .done, target: self, action: #selector(doneButtonAction))
         ]
         
         doneToolbar.tintColor = UIColor { traitCollection in
@@ -82,7 +82,7 @@ final class MoviesScreen: UIView {
     private lazy var noResultsLabel : UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Nenhum filme \nencontrado"
+        label.text = "movies.title.noResults".localized
         label.font = .systemFont(ofSize: 20, weight: .bold)
         label.textAlignment = .center
         label.numberOfLines = 0

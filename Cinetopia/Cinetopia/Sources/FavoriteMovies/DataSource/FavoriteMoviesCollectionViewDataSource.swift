@@ -34,8 +34,7 @@ final class FavoriteMoviesCollectionViewDataSource: NSObject, UICollectionViewDa
             guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: FavoriteMoviesCollectionReusableView.identifier, for: indexPath) as? FavoriteMoviesCollectionReusableView else {
                 fatalError("error to create collectionview header")
             }
-            headerView.setupTitle("Meus filmes favoritos")
-            
+            headerView.setupTitle("favoriteMovies.collectionView.title".localized)
             return headerView
         } else {
             return UICollectionReusableView()

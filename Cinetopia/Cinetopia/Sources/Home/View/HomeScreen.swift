@@ -39,7 +39,7 @@ final class HomeScreen: UIView {
     private lazy var welcomeLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "O lugar ideal para buscar, salvar e organizar seus filmes favoritos!"
+        label.text = "home.description".localized
         label.font = .systemFont(ofSize: 20, weight: .bold)
         label.textAlignment = .center
         label.numberOfLines = 0
@@ -50,7 +50,7 @@ final class HomeScreen: UIView {
     private lazy var welcomeButton: UIButton = {
         let button: UIButton = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Quero começar!", for: .normal)
+        button.setTitle("home.button.title".localized, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         button.setTitleColor(.background, for: .normal)
         button.clipsToBounds = true

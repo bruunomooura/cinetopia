@@ -11,11 +11,11 @@
 		3F23CE292C61837E006EA3EE /* MoviesTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F23CE282C61837E006EA3EE /* MoviesTableViewDelegate.swift */; };
 		3F23CE2D2C62CEF3006EA3EE /* FavoriteMoviesCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F23CE2C2C62CEF3006EA3EE /* FavoriteMoviesCollectionViewDataSource.swift */; };
 		3F23CE2F2C62CF18006EA3EE /* FavoriteMoviesCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F23CE2E2C62CF18006EA3EE /* FavoriteMoviesCollectionViewDelegate.swift */; };
+		3F23CE3D2C642E40006EA3EE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3F23CE3C2C642E40006EA3EE /* Localizable.strings */; };
 		3F3E90872C22325F00802E61 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3E90862C22325F00802E61 /* AppDelegate.swift */; };
 		3F3E90892C22325F00802E61 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3E90882C22325F00802E61 /* SceneDelegate.swift */; };
 		3F3E908B2C22325F00802E61 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3E908A2C22325F00802E61 /* HomeVC.swift */; };
 		3F3E90902C22326200802E61 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F3E908F2C22326200802E61 /* Assets.xcassets */; };
-		3F3E90932C22326200802E61 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 3F3E90922C22326200802E61 /* Base */; };
 		3F3E909E2C22326200802E61 /* CinetopiaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3E909D2C22326200802E61 /* CinetopiaTests.swift */; };
 		3F3E90A82C22326200802E61 /* CinetopiaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3E90A72C22326200802E61 /* CinetopiaUITests.swift */; };
 		3F3E90AA2C22326200802E61 /* CinetopiaUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3E90A92C22326200802E61 /* CinetopiaUITestsLaunchTests.swift */; };
@@ -75,12 +75,13 @@
 		3F23CE282C61837E006EA3EE /* MoviesTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesTableViewDelegate.swift; sourceTree = "<group>"; };
 		3F23CE2C2C62CEF3006EA3EE /* FavoriteMoviesCollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteMoviesCollectionViewDataSource.swift; sourceTree = "<group>"; };
 		3F23CE2E2C62CF18006EA3EE /* FavoriteMoviesCollectionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteMoviesCollectionViewDelegate.swift; sourceTree = "<group>"; };
+		3F23CE3E2C642E71006EA3EE /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		3F23CE3F2C642E7F006EA3EE /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3F3E90832C22325F00802E61 /* Cinetopia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cinetopia.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F3E90862C22325F00802E61 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3F3E90882C22325F00802E61 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		3F3E908A2C22325F00802E61 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		3F3E908F2C22326200802E61 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		3F3E90922C22326200802E61 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3F3E90942C22326200802E61 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3F3E90992C22326200802E61 /* CinetopiaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CinetopiaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F3E909D2C22326200802E61 /* CinetopiaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CinetopiaTests.swift; sourceTree = "<group>"; };
@@ -178,6 +179,14 @@
 			path = Delegate;
 			sourceTree = "<group>";
 		};
+		3F23CE342C642A5F006EA3EE /* Strings */ = {
+			isa = PBXGroup;
+			children = (
+				3F23CE3C2C642E40006EA3EE /* Localizable.strings */,
+			);
+			path = Strings;
+			sourceTree = "<group>";
+		};
 		3F3E907A2C22325F00802E61 = {
 			isa = PBXGroup;
 			children = (
@@ -187,6 +196,7 @@
 				3F3E90842C22325F00802E61 /* Products */,
 			);
 			sourceTree = "<group>";
+			usesTabs = 0;
 		};
 		3F3E90842C22325F00802E61 /* Products */ = {
 			isa = PBXGroup;
@@ -290,7 +300,7 @@
 				3F3E90F92C38B1AF00802E61 /* AppConfig.swift */,
 				3F3E90FB2C38B32600802E61 /* DevelopmentStatus.swift */,
 				3F3E90882C22325F00802E61 /* SceneDelegate.swift */,
-				3F3E90912C22326200802E61 /* LaunchScreen.storyboard */,
+				3F23CE3F2C642E7F006EA3EE /* LaunchScreen.storyboard */,
 			);
 			path = Aplication;
 			sourceTree = "<group>";
@@ -311,6 +321,7 @@
 			isa = PBXGroup;
 			children = (
 				3F3E90DA2C2C87C600802E61 /* Assets */,
+				3F23CE342C642A5F006EA3EE /* Strings */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -553,11 +564,10 @@
 			};
 			buildConfigurationList = 3F3E907E2C22325F00802E61 /* Build configuration list for PBXProject "Cinetopia" */;
 			compatibilityVersion = "Xcode 14.0";
-			developmentRegion = en;
+			developmentRegion = "pt-BR";
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
-				Base,
+				"pt-BR",
 			);
 			mainGroup = 3F3E907A2C22325F00802E61;
 			productRefGroup = 3F3E90842C22325F00802E61 /* Products */;
@@ -577,7 +587,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F3E90902C22326200802E61 /* Assets.xcassets in Resources */,
-				3F3E90932C22326200802E61 /* Base in Resources */,
+				3F23CE3D2C642E40006EA3EE /* Localizable.strings in Resources */,
 				3F3E90F22C373CBB00802E61 /* MoviesData.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -677,12 +687,12 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		3F3E90912C22326200802E61 /* LaunchScreen.storyboard */ = {
+		3F23CE3C2C642E40006EA3EE /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				3F3E90922C22326200802E61 /* Base */,
+				3F23CE3E2C642E71006EA3EE /* pt-BR */,
 			);
-			name = LaunchScreen.storyboard;
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -693,6 +703,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -756,6 +767,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";

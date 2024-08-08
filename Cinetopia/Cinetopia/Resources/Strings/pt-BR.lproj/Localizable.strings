@@ -1,0 +1,29 @@
+/* 
+  Localizable.strings
+  Cinetopia
+
+  Created by Bruno Moura on 07/08/24.
+  
+*/
+
+// MARK: - TabBar
+"tabBar.titleOne.movies" = "Filmes populares";
+"tabBar.titleTwo.favorites" = "Favoritos";
+
+// MARK: - Home
+"home.description" = "O lugar ideal para buscar, salvar e organizar seus filmes favoritos!";
+"home.button.title" = "Quero começar!";
+
+// MARK: - Movies
+"movies.searchBar.placeholder" = "Pesquisar";
+"movies.toolBar.button.title" = "Concluído";
+"movies.title.noResults" = "Nenhum filme \nencontrado";
+"movies.tableView.button.title" = "Favoritar";
+"movies.tableview.subTitle %@" = "Lançamento: %@";
+
+// MARK: - MoviesDetails
+"moviesDetails.subTitle %@" = "Classificação dos usuários: %@";
+
+// MARK: - FavoriteMovies
+"favoriteMovies.title.noResults" = "Você ainda não favoritou nenhum filme";
+"favoriteMovies.collectionView.title" = "Meus filmes favoritos";
