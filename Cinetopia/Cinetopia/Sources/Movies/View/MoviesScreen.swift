@@ -91,9 +91,9 @@ final class MoviesScreen: UIView {
         return label
     }()
     
-    public func setupTableView(delegate: UITableViewDelegate, dataSource: UITableViewDataSource) {
-        tableView.delegate = delegate
-        tableView.dataSource = dataSource
+    public func setupTableView(_ dataSourceAndDelegate: MoviesTableViewDataSource) {
+        tableView.delegate = dataSourceAndDelegate
+        tableView.dataSource = dataSourceAndDelegate
     }
     
     public func setupSearchBar(delegate: UISearchBarDelegate) {

@@ -8,9 +8,9 @@
 import Foundation
 
 protocol MoviesViewModelProtocol: AnyObject {
-    func searchText()
-    func updateData()
-    func insertRows(_ newsIndexPaths: [IndexPath])
+    func searchText(content: [Movie])
+    func updateData(content: [Movie])
+    func insertRows(content: [Movie], _ newsIndexPaths: [IndexPath])
 }
 
 final class MoviesViewModel {
@@ -54,7 +54,7 @@ extension MoviesViewModel {
     
     public func filterMovies() {
         movieManager.searchMovie(searchText)
-        delegate?.searchText()
+        delegate?.searchText(content: movieManager.filteredMovies)
     }
     
     //    MARK: - Initial movie data loading from TMDB API
@@ -64,7 +64,6 @@ extension MoviesViewModel {
         print("Página atual: ", currentPage)
         movieServiceProtocol.fetchPopularMovies(language: language, page: currentPage) { [weak self] result in
             guard let self = self else { return }
-            
             switch result {
             case .success(let moviesResponse):
                 self.isLoading = false
@@ -81,7 +80,7 @@ extension MoviesViewModel {
     func updateView() {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            self.delegate?.updateData()
+            self.delegate?.updateData(content: movieManager.filteredMovies)
         }
     }
     
@@ -89,6 +88,7 @@ extension MoviesViewModel {
     func additionalLoadData() {
         guard AppConfig.currentDevelopmentStatus == .production else { return }
         guard !isLoading else { return }
+        guard searchText.isEmpty else { return }
         isLoading = true
         currentPage += 1
         
@@ -106,7 +106,7 @@ extension MoviesViewModel {
                 let newIndexPaths = (startIndex..<endIndex).map { IndexPath(row: $0, section: 0) }
                 DispatchQueue.main.async { [weak self] in
                     guard let self = self else { return }
-                    self.delegate?.insertRows(newIndexPaths)
+                    self.delegate?.insertRows(content: movieManager.filteredMovies, newIndexPaths)
                 }
                 
             case.failure(let error):
@@ -144,7 +144,7 @@ extension MoviesViewModel {
         return movieManager.filteredMovies[indexPath.row]
     }
     
-    public func heightForRow() -> CGFloat {
-        return 170
-    }
+//    public func heightForRow() -> CGFloat {
+//        return 170
+//    }
 }

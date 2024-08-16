@@ -11,25 +11,19 @@ final class MoviesVC: UIViewController {
     
     var viewModel: MoviesViewModel = MoviesViewModel()
     var screen: MoviesScreen?
-    private var tableViewDelegate: MoviesTableViewDelegate?
     private var tableViewDataSource: MoviesTableViewDataSource?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
-        tableViewDelegate = MoviesTableViewDelegate(viewController: self)
-        tableViewDataSource = MoviesTableViewDataSource(viewController: self)
-        guard let delegate = tableViewDelegate,
-              let dataSource = tableViewDataSource else { return }
-        screen?.setupTableView(delegate: delegate, dataSource: dataSource)
-        screen?.setupSearchBar(delegate: self)
-        viewModel.delegate(delegate: self)
-        viewModel.loadDataMovies()
+        setupViewModel()
+        setupSearchBar()
+        setupTableView()
+        setupDataSourceCallbacks()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         viewModel.filterMovies()
-        updateData()
     }
     
     override func loadView() {
@@ -41,6 +35,8 @@ final class MoviesVC: UIViewController {
         print(Self.self, "- Deallocated")
     }
     
+    // MARK: - Navigation Bar Setup
+    /// Configures the navigation bar appearance and title.
     private func setupNavigationBar() {
         title = "tabBar.titleOne.movies".localized
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -50,6 +46,53 @@ final class MoviesVC: UIViewController {
         navigationItem.setHidesBackButton(true, animated: true)
     }
     
+    // MARK: - ViewModel Setup
+    /// Sets the delegate for the ViewModel and triggers movie data loading.
+    private func setupViewModel() {
+        viewModel.delegate(delegate: self)
+        viewModel.loadDataMovies()
+    }
+    
+    // MARK: - Search Bar Setup
+    /// Configures the Search Bar and assigns the delegate.
+    private func setupSearchBar() {
+        screen?.setupSearchBar(delegate: self)
+    }
+    
+    // MARK: - TableView Setup
+    /// Initializes and configures the TableView DataSource and connects it to the screen.
+    private func setupTableView() {
+        tableViewDataSource = MoviesTableViewDataSource()
+        tableViewDataSource?.delegate = self
+        guard let dataSource = tableViewDataSource else { return }
+        screen?.setupTableView(dataSource)
+    }
+    
+    // MARK: - DataSource Callbacks Setup
+    /// Defines the DataSource callbacks for handling scroll events and item selection.
+    private func setupDataSourceCallbacks() {
+        guard let dataSource = tableViewDataSource else { return }
+        
+        // Callback for loading more data when nearing the end of the list
+        dataSource.didScrollNearEnd = { [weak self] in
+            self?.viewModel.additionalLoadData()
+        }
+        
+        // Callback for handling movie item selection
+        dataSource.didClickEvent = { [weak self] indexPath in
+            if let movie = self?.viewModel.loadCurrentMovie(indexPath: indexPath) {
+                self?.navigation(movie: movie)
+            }
+        }
+        
+        // Callback to hide the keyboard during scroll events
+        dataSource.didScrollHideKeyboard = { [weak self] in
+            self?.screen?.hideKeyboard()
+        }
+    }
+    
+    // MARK: - Navigation
+    /// Pushes the `MovieDetailsVC` onto the navigation stack with the given movie's details.
     func navigation(movie: Movie) {
         let movieDetailsViewModel = MovieDetailsViewModel(movie: movie)
         navigationController?.pushViewController(MovieDetailsVC(viewModel: movieDetailsViewModel), animated: true)
@@ -72,22 +115,26 @@ extension MoviesVC: MovieTableViewCellProtocol {
         guard let indexPath = screen?.indexPath(for: cell) else { return }
         let movie = viewModel.loadCurrentMovie(indexPath: indexPath)
         viewModel.toggleFavoriteMovie(movie: movie)
+        tableViewDataSource?.updateRow(id: movie.id)
         screen?.reloadRows([indexPath])
     }
 }
 
 extension MoviesVC: MoviesViewModelProtocol {
-    func searchText() {
+    func searchText(content: [Movie]) {
+        tableViewDataSource?.reloadTableView(with: content)
         screen?.reloadTableView()
         screen?.noResults(noResults: viewModel.noResults)
     }
     
-    func updateData() {
+    func updateData(content: [Movie]) {
+        tableViewDataSource?.reloadTableView(with: content)
         screen?.reloadTableView()
         screen?.noResults(noResults: viewModel.noResults)
     }
     
-    func insertRows(_ newsIndexPaths: [IndexPath]) {
+    func insertRows(content: [Movie], _ newsIndexPaths: [IndexPath]) {
+        tableViewDataSource?.reloadTableView(with: content)
         screen?.insertRowsTableView(indexPaths: newsIndexPaths)
     }
 }
