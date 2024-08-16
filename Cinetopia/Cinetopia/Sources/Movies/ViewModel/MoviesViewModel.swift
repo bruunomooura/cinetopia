@@ -143,8 +143,4 @@ extension MoviesViewModel {
     public func loadCurrentMovie(indexPath: IndexPath) -> Movie {
         return movieManager.filteredMovies[indexPath.row]
     }
-    
-//    public func heightForRow() -> CGFloat {
-//        return 170
-//    }
 }

@@ -8,7 +8,7 @@
 import Foundation
 
 protocol FavoriteMoviesViewModelProtocol: AnyObject {
-    func updateData()
+    func updateData(content: [FavoriteMovie])
 }
 
 final class FavoriteMoviesViewModel {
@@ -47,11 +47,16 @@ extension FavoriteMoviesViewModel {
         return  coreData.getFavoriteMovies[indexPath.row]
     }
     
+    public func loadDataMovies() {
+        let favoriteMovies = coreData.getFavoriteMovies
+        delegate?.updateData(content: favoriteMovies)
+    }
+    
     public func removeFavoriteMovie(id: Int64) {
         coreData.deleteFavoriteMovie(id: id) { success in
             if success {
                 movieManager.toggleFavoriteMovieStatus(Int(id)) { _ in }
-                delegate?.updateData()
+                delegate?.updateData(content: coreData.getFavoriteMovies)
             }
         }
     }

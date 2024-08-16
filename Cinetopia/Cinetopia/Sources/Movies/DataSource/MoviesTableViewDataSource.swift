@@ -54,7 +54,7 @@ extension MoviesTableViewDataSource: UITableViewDelegate {
             didScrollNearEnd?()
         }
     }
-
+    
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         didScrollHideKeyboard?()
     }

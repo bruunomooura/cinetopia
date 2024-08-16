@@ -10,21 +10,23 @@ import UIKit
 
 final class FavoriteMoviesCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     
-    private weak var viewController: FavoriteMoviesVC?
+    private var content: [FavoriteMovie] = []
+    weak var delegate: FavoriteMoviesCollectionViewCellProtocol?
     
-    init(viewController: FavoriteMoviesVC) {
-        self.viewController = viewController
+    public var didScroll: ((_ hiddenTitle: Bool) -> Void)?
+    
+    public func reloadCollectionView(with content: [FavoriteMovie]) {
+        self.content = content
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let viewModel = viewController?.viewModel else { return 0 }
-        return viewModel.numberOfRowsInSection
+        return content.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FavoriteMoviesCollectionViewCell.identifier, for: indexPath) as? FavoriteMoviesCollectionViewCell,
-              let movie = viewController?.viewModel.loadCurrentMovie(indexPath: indexPath) else { return UICollectionViewCell() }
-        cell.delegate(delegate: viewController)
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FavoriteMoviesCollectionViewCell.identifier, for: indexPath) as? FavoriteMoviesCollectionViewCell else { return UICollectionViewCell() }
+        let movie = content[indexPath.row]
+        cell.delegate(delegate: delegate)
         cell.configureCell(movie: movie)
         return cell
     }
@@ -38,6 +40,17 @@ final class FavoriteMoviesCollectionViewDataSource: NSObject, UICollectionViewDa
             return headerView
         } else {
             return UICollectionReusableView()
+        }
+    }
+}
+
+extension FavoriteMoviesCollectionViewDataSource: UICollectionViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let yOffset = scrollView.contentOffset.y
+        if yOffset > 35 {
+            didScroll?(true)
+        } else {
+            didScroll?(false)
         }
     }
 }

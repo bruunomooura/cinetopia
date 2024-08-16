@@ -51,6 +51,6 @@ struct Movie: Decodable, Equatable, Hashable {
     }
     
     public mutating func toggleFavoriteMovieStatus() {
-       favoriteMovie?.toggle()
+        favoriteMovie?.toggle()
     }
 }

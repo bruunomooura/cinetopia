@@ -54,9 +54,9 @@ final class FavoriteMoviesScreen: UIView {
         return label
     }()
     
-    public func setupCollectionView(delegate: UICollectionViewDelegate, dataSource: UICollectionViewDataSource) {
-        collectionView.delegate = delegate
-        collectionView.dataSource = dataSource
+    public func setupCollectionView(_ dataSourceAndDelegate: FavoriteMoviesCollectionViewDataSource) {
+        collectionView.delegate = dataSourceAndDelegate
+        collectionView.dataSource = dataSourceAndDelegate
     }
     
     public func noFavorites(noFavorites: Bool) {
