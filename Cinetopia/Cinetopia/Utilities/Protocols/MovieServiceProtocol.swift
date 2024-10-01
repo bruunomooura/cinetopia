@@ -8,5 +8,5 @@
 import Foundation
 
 protocol MovieServiceProtocol {
-    func fetchPopularMovies(language: String, page: Int, completion: @escaping (Result<MovieResponse, Error>) -> Void)
+    func fetchPopularMovies(language: String, page: Int) async throws -> MovieResponse
 }

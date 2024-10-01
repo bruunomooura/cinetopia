@@ -58,62 +58,58 @@ extension MoviesViewModel {
     }
     
     //    MARK: - Initial movie data loading from TMDB API
-    func loadDataMovies() {
+    func loadDataMovies() async {
         isLoading = true
         currentPage += 1
         print("Página atual: ", currentPage)
-        movieServiceProtocol.fetchPopularMovies(language: language, page: currentPage) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let moviesResponse):
-                self.isLoading = false
-                self.movieManager.saveMovies(moviesResponse.results)
-                
-            case .failure(let error):
-                self.isLoading = false
-                print("Failed to fetch movies: \(error.localizedDescription)")
-            }
-            self.updateView()
+        
+        do {
+            let moviesResponse = try await movieServiceProtocol.fetchPopularMovies(language: language, page: currentPage)
+            self.isLoading = false
+            self.movieManager.saveMovies(moviesResponse.results)
+        } catch {
+            self.isLoading = false
+            print("Failed to fetch movies: \(error.localizedDescription)")
         }
+        
+        await updateView()
     }
     
-    func updateView() {
-        DispatchQueue.main.async { [weak self] in
+    func updateView() async {
+        await MainActor.run { [weak self] in
             guard let self = self else { return }
             self.delegate?.updateData(content: movieManager.filteredMovies)
         }
     }
     
     //    MARK: - Additional movie data loading from TMDB API
-    func additionalLoadData() {
+    func additionalLoadData() async {
         guard AppConfig.currentDevelopmentStatus == .production else { return }
         guard !isLoading else { return }
         guard searchText.isEmpty else { return }
+        
         isLoading = true
         currentPage += 1
         
-        movieServiceProtocol.fetchPopularMovies(language: language, page: currentPage) { [weak self] result in
-            guard let self = self else { return }
-            
+        do {
+            let moviesResponse = try await movieServiceProtocol.fetchPopularMovies(language: language, page: currentPage)
             print("Página atual: ", currentPage)
             
-            switch result {
-            case .success(let moviesResponse):
-                self.isLoading = false
-                let startIndex = self.movieManager.moviesList.count
-                self.movieManager.appendMovies(moviesResponse.results)
-                let endIndex = self.movieManager.moviesList.count
-                let newIndexPaths = (startIndex..<endIndex).map { IndexPath(row: $0, section: 0) }
-                DispatchQueue.main.async { [weak self] in
-                    guard let self = self else { return }
-                    self.delegate?.insertRows(content: movieManager.filteredMovies, newIndexPaths)
-                }
-                
-            case.failure(let error):
-                self.isLoading = false
-                currentPage -= 1
-                print("Failed to fetch movies: \(error.localizedDescription)")
+            let startIndex = self.movieManager.moviesList.count
+            movieManager.appendMovies(moviesResponse.results)
+            let endIndex = self.movieManager.moviesList.count
+            let newIndexPaths = (startIndex..<endIndex).map { IndexPath(row: $0, section: 0) }
+            
+            await MainActor.run { [weak self] in
+                guard let self = self else { return }
+                self.delegate?.insertRows(content: movieManager.filteredMovies, newIndexPaths)
             }
+            
+            isLoading = false
+        } catch {
+            self.isLoading = false
+            currentPage -= 1
+            print("Failed to fetch movies: \(error.localizedDescription)")
         }
     }
     

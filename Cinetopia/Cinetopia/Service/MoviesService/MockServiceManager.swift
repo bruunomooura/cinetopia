@@ -14,16 +14,16 @@ final class MockServiceManager: MovieServiceProtocol {
         self.decoderService = decoderService
     }
     
-    func fetchPopularMovies(language: String, page: Int, completion: @escaping (Result<MovieResponse, any Error>) -> Void) {
-        guard let url = Bundle.main.url(forResource: JSONFile.moviesData.rawValue, withExtension: JSONFile.json.rawValue) else { return }
+    func fetchPopularMovies(language: String, page: Int) async throws -> MovieResponse {
+        guard let url = Bundle.main.url(forResource: JSONFile.moviesData.rawValue, withExtension: JSONFile.json.rawValue) else { throw MoviesLoadingError.errorReceivingData }
         
         do {
             let data = try Data(contentsOf: url)
             let movies: MovieResponse = try decoderService.decode(MovieResponse.self, from: data)
-            completion(.success(movies))
+            return movies
         } catch {
             print("Error: \(error.localizedDescription)")
-            completion(.failure(error))
+            throw error
         }
     }
 }

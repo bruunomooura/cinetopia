@@ -46,11 +46,19 @@ final class MoviesVC: UIViewController {
         navigationItem.setHidesBackButton(true, animated: true)
     }
     
-    // MARK: - ViewModel Setup
-    /// Sets the delegate for the ViewModel and triggers movie data loading.
+    // MARK: - ViewModel Configuration
+    /// Configures the ViewModel by setting the delegate and initiating the data loading process.
     private func setupViewModel() {
         viewModel.delegate(delegate: self)
-        viewModel.loadDataMovies()
+        loadMoviesData()
+    }
+    
+    // MARK: - Data Loading
+    /// Asyn loads movie data.
+    private func loadMoviesData() {
+        Task {
+            await viewModel.loadDataMovies()
+        }
     }
     
     // MARK: - Search Bar Setup
@@ -75,7 +83,9 @@ final class MoviesVC: UIViewController {
         
         // Callback for loading more data when nearing the end of the list
         dataSource.didScrollNearEnd = { [weak self] in
-            self?.viewModel.additionalLoadData()
+            Task {
+                await self?.viewModel.additionalLoadData()
+            }
         }
         
         // Callback for handling movie item selection

@@ -22,10 +22,10 @@ final class TMDBServiceManager: MovieServiceProtocol {
         dataTask?.cancel()
     }
     
-    func fetchPopularMovies(language: String, page: Int, completion: @escaping (Result<MovieResponse, Error>) -> Void) {
-        guard let url = URL(string: "https://api.themoviedb.org/3/movie/popular") else { return }
+    func fetchPopularMovies(language: String, page: Int) async throws -> MovieResponse {
+        guard let url = URL(string: "https://api.themoviedb.org/3/movie/popular") else { throw MoviesLoadingError.errorReceivingData }
         
-        guard var components = URLComponents(url: url, resolvingAgainstBaseURL: true) else { return }
+        guard var components = URLComponents(url: url, resolvingAgainstBaseURL: true) else { throw MoviesLoadingError.errorReceivingData }
         let queryItems: [URLQueryItem] = [
             URLQueryItem(name: "language", value: language),
             URLQueryItem(name: "page", value: String(page)),
@@ -40,30 +40,16 @@ final class TMDBServiceManager: MovieServiceProtocol {
             "Authorization": "Bearer \(APIKeys.tmdbAPIToken)"
         ]
         
-        dataTask = session.dataTask(with: request) { [ weak self ] data, response, error in
-            guard let self = self else { return }
-            if let error {
-                print("Error: \(error.localizedDescription)")
-                completion(.failure(error))
-                return
-            }
-            
-            guard let data else {
-                print("No data received")
-                completion(.failure(MoviesLoadingError.errorReceivingData))
-                return }
-            
+        let (data, response) =  try await session.data(for: request)
+        
+        guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else { throw MoviesLoadingError.errorReceivingData }
+        
             do {                
-                let movies = try self.decoderService.decode(MovieResponse.self, from: data)
-                DispatchQueue.main.async {
-                    completion(.success(movies))
-                }
+                let movies = try decoderService.decode(MovieResponse.self, from: data)
+                return movies
             } catch {
-                print("Error: \(error.localizedDescription)")
-                completion(.failure(error))
+                throw error
             }
-        }
-        dataTask?.resume()
     }
 }
 
